@@ -2,97 +2,128 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QEVRULIXA | The World of Books</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QEVRULIXA | A Universe of Books</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#0b1020;color:#f8f5ee;font-family:Arial,sans-serif}
-header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid #333}
-.logo{font-size:25px;font-weight:bold;letter-spacing:2px;color:#e8c779}
-nav a{color:white;text-decoration:none;margin:8px}
-.hero{padding:65px 7%;background:linear-gradient(120deg,#17213c,#302342)}
-.hero h1{font-size:clamp(38px,6vw,64px);margin:15px 0}
-.hero p{line-height:1.8;color:#d1d2dd;max-width:580px}
-.gold{color:#e8c779}
-input{padding:14px;width:min(100%,460px);border-radius:8px;border:1px solid #aaa;margin-top:15px;font-size:16px}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:1px solid #29334d}
+.logo{font-size:24px;font-weight:bold;letter-spacing:3px;color:#e8c779}
+nav a{color:#fff;text-decoration:none;margin:8px;font-size:14px}
+.hero{padding:65px 7%;background:linear-gradient(120deg,#17213c,#303242)}
+.eyebrow{color:#e8c779;letter-spacing:3px;font-size:12px}
+.hero h1{font-size:clamp(36px,6vw,64px);margin:18px 0}
+.hero p{color:#c8cbd8;line-height:1.8;max-width:600px}
+.btn{display:inline-block;background:#e8c779;color:#171c2d;border:0;border-radius:8px;padding:13px 20px;font-weight:bold;text-decoration:none;cursor:pointer}
 section{padding:35px 6%}
-h2{color:#e8c779}
+h2{color:#e8c779;font-size:28px}
+.search{width:100%;max-width:600px;padding:15px;border-radius:10px;border:1px solid #47516c;background:#171e32;color:white;font-size:16px;margin:10px 0 20px}
 .categories{display:flex;gap:10px;flex-wrap:wrap}
-.chip{background:#171d30;color:white;border:1px solid #666;padding:10px 15px;border-radius:25px;cursor:pointer}
-.chip.active{background:#e8c779;color:#111}
-.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:18px}
-.book{background:#171d30;border:1px solid #343a52;border-radius:12px;padding:14px;min-width:0}
-.cover{height:180px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:21px;font-weight:bold}
-.book p{color:#c5c8d5;font-size:14px;line-height:1.5}
-.read{display:inline-block;background:#e8c779;color:#151515;padding:11px 15px;border-radius:7px;text-decoration:none;font-weight:bold;margin-top:8px}
-footer{text-align:center;padding:25px;color:#aaa;border-top:1px solid #333}
+.chip{padding:10px 16px;border:1px solid #59627a;border-radius:30px;background:#171e32;color:white;cursor:pointer}
+.chip.active,.chip:hover{background:#e8c779;color:#171c2d}
+.books{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.book{background:#171e32;border:1px solid #303a54;border-radius:15px;padding:14px;display:flex;flex-direction:column}
+.cover{height:180px;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;padding:18px;font-size:23px;font-weight:bold;color:white;background:linear-gradient(140deg,#8c55b7,#252b52)}
+.book h3{margin-bottom:5px}
+.tag{color:#e8c779;font-size:13px}
+.book p{color:#c8cbd8;font-size:14px;line-height:1.6;flex-grow:1}
+.book .btn{align-self:flex-start}
+.empty{color:#c8cbd8;display:none}
+.about{background:#131a2c;line-height:1.8;color:#d0d5e2}
+footer{text-align:center;padding:28px;color:#aab0c3;border-top:1px solid #303a54;font-size:13px}
+@media(max-width:600px){header{padding:18px 5%}.hero{padding:45px 6%}section{padding:28px 5%}nav a{margin:5px}}
 </style>
 </head>
 <body>
 <header>
-<div class="logo">QEVRULIXA</div>
-<nav><a href="#home">Home</a><a href="#categories">Categories</a><a href="#library">Library</a></nav>
+  <div class="logo">QEVRULIXA</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#library">Library</a>
+    <a href="#categories">Categories</a>
+    <a href="#about">About</a>
+  </nav>
 </header>
 
-<div class="hero" id="home">
-<div class="gold">DISCOVER · READ · IMAGINE</div>
-<h1>Every book opens<br>a new world.</h1>
-<p>Explore poetry, shayari, biographies, stories, history and knowledge in one elegant digital library.</p>
-<input id="search" placeholder="Search books or categories..." oninput="renderBooks()">
-</div>
+<main>
+<section class="hero" id="home">
+  <div class="eyebrow">YOUR DIGITAL READING WORLD</div>
+  <h1>A Universe<br>of Books.</h1>
+  <p>Discover beautiful stories, timeless poetry, inspiring lives and powerful ideas. Find your next favourite read at QEVRULIXA.</p>
+  <a class="btn" href="#library">Explore the Library →</a>
+</section>
 
 <section id="categories">
-<h2>Explore Categories</h2>
-<div class="categories" id="chips"></div>
+  <h2>Explore Categories</h2>
+  <div class="categories" id="chips"></div>
 </section>
 
 <section id="library">
-<h2>Featured Library</h2>
-<p>Discover your next favourite read.</p>
-<div class="books" id="books"></div>
+  <h2>Discover Your Next Read</h2>
+  <p style="color:#c8cbd8">Search books or choose a category to explore.</p>
+  <input class="search" id="search" placeholder="Search books, authors or categories..." oninput="renderBooks()">
+  <div class="books" id="books"></div>
+  <p class="empty" id="empty">No books found. Try another search.</p>
 </section>
 
-<footer>© 2026 QEVRULIXA · The World of Books</footer>
+<section class="about" id="about">
+  <h2>About QEVRULIXA</h2>
+  <p>A digital library for curious minds and passionate readers. Explore poetry, shayari, biographies, stories, history, education and literature—all in one place.</p>
+  <p>Our mission is to make discovering books simple, beautiful and enjoyable.</p>
+</section>
+</main>
+
+<footer>© 2026 QEVRULIXA · A Universe of Books</footer>
 
 <script>
-const data=[
-["The Art of Poetry","Poetry","Discover words and imagination","#72558d",""],
-["Dil Ki Shayari","Shayari","Feelings expressed in beautiful words","#8e485f",""],
-["Great Lives","Biography","Stories of inspiring lives","#426c68",""],
-["World of Stories","Stories","Adventures and timeless tales","#8a6339",""],
-["World History","History","Explore our shared past","#475f91",""],
-["Learn Every Day","Education","Ideas that help you grow","#52704c",""],
-["Classic Literature","Literature","Timeless works and ideas","#765e45",""],
-["Mystery & Wonder","Mystery","Explore the unknown","#51467d",""]
+const categories=["All","Shayari","Poetry","Biography","Stories","History","Education","Literature","Mystery"];
+const books=[
+{title:"The Art of Poetry",cat:"Poetry",desc:"Discover beautiful verses, imagination and the art of expression.",color:"#8050a8"},
+{title:"Dil Ki Shayari",cat:"Shayari",desc:"Explore heartfelt words about love, friendship and emotions.",color:"#bb477b"},
+{title:"Great Lives",cat:"Biography",desc:"Discover inspiring people and extraordinary life journeys.",color:"#388f91"},
+{title:"World of Stories",cat:"Stories",desc:"Explore adventures, short stories and timeless tales.",color:"#b86e36"},
+{title:"World History",cat:"History",desc:"Explore events and people that shaped our shared past.",color:"#456bb3"},
+{title:"Learn Every Day",cat:"Education",desc:"Find learning resources and ideas that help you grow.",color:"#528c58"},
+{title:"Classic Literature",cat:"Literature",desc:"Discover classic works and memorable literary characters.",color:"#8b6652"},
+{title:"Mystery & Wonder",cat:"Mystery",desc:"Explore mysteries, detective tales and the unknown.",color:"#6352a0"},
+{title:"Love & Life",cat:"Shayari",desc:"Find poetry and shayari for life's special moments.",color:"#ad526e"},
+{title:"Inspiring Journeys",cat:"Biography",desc:"Read about courage, achievement and perseverance.",color:"#337b79"},
+{title:"Short Story Collection",cat:"Stories",desc:"Discover short reads full of imagination and meaning.",color:"#a26b42"},
+{title:"The World of Knowledge",cat:"Education",desc:"Explore ideas, learning and general knowledge.",color:"#467e67"}
 ];
-
-const cats=["All","Shayari","Poetry","Biography","Stories","History","Education","Literature","Mystery"];
 let selected="All";
 
-function renderChips(){
-document.getElementById("chips").innerHTML=cats.map(c=>
-`<button class="chip ${c===selected?'active':''}" onclick="selected='${c}';renderChips();renderBooks()">${c}</button>`
+document.getElementById("chips").innerHTML=categories.map(c=>
+`<button class="chip ${c==="All"?"active":""}" onclick="chooseCategory('${c}',this)">${c}</button>`
 ).join("");
+
+function chooseCategory(category,button){
+ selected=category;
+ document.querySelectorAll(".chip").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderBooks();
 }
 
 function renderBooks(){
-const q=document.getElementById("search").value.toLowerCase();
-const list=data.filter(b=>
-(selected==="All"||b[1]===selected)&&
-b.slice(0,3).join(" ").toLowerCase().includes(q)
-);
-document.getElementById("books").innerHTML=list.map((b,i)=>`
-<article class="book">
-<div class="cover" style="background:linear-gradient(145deg,${b[3]},#171d30)">${b[0]}</div>
-<h3>${b[0]}</h3>
-<p>${b[1]}</p>
-<p>${b[2]}</p>
-<a class="read" href="${b[4]||'#'}" onclick="if(!data[${data.indexOf(list[i])}][4]){event.preventDefault();alert('This is a sample book card. Add your authorized book or PDF link to enable reading.')}">Read Book</a>
-</article>
-`).join("")||"<p>No books found. Try another search.</p>";
+ const q=document.getElementById("search").value.toLowerCase();
+ const list=books.filter(b=>
+ (selected==="All"||b.cat===selected)&&
+ (b.title+" "+b.cat+" "+b.desc).toLowerCase().includes(q)
+ );
+ document.getElementById("books").innerHTML=list.map(b=>`
+ <article class="book">
+ <div class="cover" style="background:linear-gradient(140deg,${b.color},#202741)">${b.title}</div>
+ <h3>${b.title}</h3>
+ <div class="tag">${b.cat}</div>
+ <p>${b.desc}</p>
+ <button class="btn" onclick="findBook('${b.title.replace(/'/g,"\\'")}')">Find Book Online →</button>
+ </article>`).join("");
+ document.getElementById("empty").style.display=list.length?"none":"block";
 }
 
-renderChips();
+function findBook(title){
+ window.open("https://archive.org/search?query="+encodeURIComponent(title)," _blank");
+}
 renderBooks();
 </script>
 </body>
