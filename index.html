@@ -310,7 +310,7 @@
             <button class="btn primary" type="submit">Sign in securely</button>
           </form>
         </div>
-        <div id="adminPanel" class="hidden">
+        <div<div class="admin-status" id="adminStatus" role="status" aria-live="polite"></div> id="adminPanel" class="hidden">
           <h3 style="font-size:30px">Manage the library</h3>
           <p class="muted" id="signedInAs"></p>
           <form id="uploadForm">
@@ -326,7 +326,7 @@
             </div>
             <button class="btn primary" id="uploadBtn" type="submit">Upload PDF</button>
           </form>
-          <div class="admin-status" id="adminStatus" role="status" aria-live="polite"></div>
+          
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 20px">
             <button class="btn small" id="adminRefresh" type="button">Refresh list</button>
             <button class="btn small" id="logoutBtn" type="button">Sign out</button>
