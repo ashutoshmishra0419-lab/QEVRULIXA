@@ -1,341 +1,693 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QEVRULIXA — A World Beyond Words</title>
-<meta name="description" content="QEVRULIXA — Explore ideas, literature, wisdom, quotes and a growing digital library.">
-<style>
-:root {
-  --bg:#10100f; --panel:#1b1a18; --text:#f4efe5;
-  --muted:#b6ad9d; --gold:#d8b779; --line:#38342d;
-}
-* {box-sizing:border-box;scroll-behavior:smooth}
-body {
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Georgia,"Times New Roman",serif;line-height:1.7;
-}
-header {
-  padding:20px 7%;display:flex;align-items:center;
-  justify-content:space-between;gap:20px;flex-wrap:wrap;
-  border-bottom:1px solid var(--line);background:#10100ff5;
-}
-.logo {font-size:26px;letter-spacing:4px;color:var(--gold);font-weight:bold}
-nav {display:flex;gap:15px;flex-wrap:wrap}
-nav a {color:var(--text);text-decoration:none;font-size:14px}
-nav a:hover,a:hover {color:var(--gold)}
-.hero {
-  min-height:460px;padding:95px 8%;display:flex;flex-direction:column;
-  justify-content:center;align-items:center;text-align:center;
-  background:linear-gradient(135deg,#262016,#10100f 65%);
-}
-.eyebrow {color:var(--gold);letter-spacing:4px;text-transform:uppercase;font-size:12px}
-h1 {font-size:clamp(38px,7vw,76px);line-height:1.12;margin:15px 0}
-h2 {font-size:clamp(28px,4vw,42px);margin:0 0 12px}
-p {color:var(--muted)}
-.hero p {max-width:650px;font-size:18px}
-.btn {
-  display:inline-block;background:var(--gold);color:#17130c;
-  padding:11px 22px;text-decoration:none;border:0;cursor:pointer;
-  font-weight:bold;margin:6px 5px 0 0;font-family:inherit;
-}
-.btn.secondary {background:transparent;color:var(--gold);border:1px solid var(--gold)}
-section {padding:65px 8%;border-bottom:1px solid var(--line);scroll-margin-top:20px}
-.section-intro {max-width:700px;margin-bottom:28px}
-.grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card {padding:23px;background:var(--panel);border:1px solid var(--line);border-radius:4px}
-.card h3 {color:var(--gold);margin-top:0}
-input,select,textarea {
-  width:100%;padding:12px;background:#131311;color:var(--text);
-  border:1px solid var(--line);margin:7px 0 14px;font:inherit;
-}
-label {display:block;color:var(--muted);font-size:14px}
-.quote {font-size:22px;font-style:italic;color:var(--text)}
-.small {font-size:13px;color:var(--muted)}
-.book-actions a {margin-right:10px}
-footer {padding:30px 8%;text-align:center;color:var(--muted)}
-.hidden {display:none!important}
-#libraryList,#galleryList {margin-top:25px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>QEVRULIXA — A World Beyond Words</title>
+  <meta name="description" content="QEVRULIXA is a refined digital sanctuary for literature, ideas, timeless wisdom, and the quiet beauty of words.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#090909; --panel:#11110f; --gold:#d8b46b;
+      --gold-light:#f1d9a0; --text:#f3eee5; --muted:#a9a398;
+      --line:rgba(216,180,107,.23);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:90px; }
+    body {
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:"DM Sans",sans-serif; line-height:1.7;
+    }
+    a { color:inherit; text-decoration:none; }
+    button,input,select,textarea { font:inherit; }
+    button,a { -webkit-tap-highlight-color:transparent; }
+    button { cursor:pointer; }
+    .wrap { width:min(1120px,91%); margin:auto; }
+    .serif { font-family:"Cormorant Garamond",serif; }
+    .gold { color:var(--gold); }
+    .eyebrow {
+      color:var(--gold); text-transform:uppercase; letter-spacing:3px;
+      font-size:11px; font-weight:700;
+    }
+    h1,h2,h3,p { margin-top:0; }
+    h1,h2,h3 { font-family:"Cormorant Garamond",serif; font-weight:500; line-height:1.1; }
+    h2 { font-size:clamp(36px,5vw,56px); margin-bottom:18px; }
+    .muted { color:var(--muted); }
+    .section { padding:95px 0; }
+    .section-head { max-width:680px; margin-bottom:38px; }
+    .section-head p { color:var(--muted); }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:9px;
+      padding:12px 21px; border:1px solid var(--gold); border-radius:2px;
+      color:var(--gold-light); background:transparent; transition:.2s;
+    }
+    .btn:hover { background:var(--gold); color:#090909; }
+    .btn.primary { background:var(--gold); color:#090909; font-weight:700; }
+    .btn.primary:hover { background:var(--gold-light); }
+    .btn.small { padding:8px 12px; font-size:12px; }
+    .btn:disabled { opacity:.5; cursor:not-allowed; }
+    header {
+      position:sticky; top:0; z-index:20; background:rgba(9,9,9,.94);
+      border-bottom:1px solid var(--line); backdrop-filter:blur(14px);
+    }
+    .nav { min-height:75px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .brand { font-family:"Cormorant Garamond",serif; font-size:27px; letter-spacing:3px; color:var(--gold-light); }
+    .brand small { display:block; font-family:"DM Sans",sans-serif; font-size:8px; letter-spacing:3px; color:var(--muted); }
+    .nav-links { display:flex; align-items:center; gap:19px; font-size:12px; color:#d6d0c5; }
+    .nav-links a:hover { color:var(--gold); }
+    .menu-btn { display:none; background:none; color:var(--gold); border:1px solid var(--line); padding:7px 11px; }
+    .hero {
+      min-height:660px; display:flex; align-items:center; position:relative; overflow:hidden;
+      background:radial-gradient(ellipse at 75% 45%,rgba(132,91,34,.19),transparent 42%),
+                 linear-gradient(115deg,#090909 40%,#15120d 100%);
+      border-bottom:1px solid var(--line);
+    }
+    .hero:after {
+      content:"Q"; position:absolute; right:7%; top:4%; font-family:"Cormorant Garamond",serif;
+      font-size:clamp(240px,42vw,520px); line-height:1; color:rgba(216,180,107,.055);
+      pointer-events:none;
+    }
+    .hero-inner { max-width:750px; padding:90px 0; position:relative; z-index:1; }
+    .hero h1 { font-size:clamp(62px,10vw,116px); margin:17px 0 8px; letter-spacing:-2px; }
+    .hero h1 span { display:block; color:var(--gold); font-style:italic; }
+    .hero p { max-width:560px; color:#bdb6aa; font-size:16px; margin:22px 0 29px; }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .ornament { width:100px; height:1px; background:var(--gold); margin:26px 0; }
+    .intro-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:65px; align-items:center; }
+    .quote-panel {
+      border:1px solid var(--line); background:linear-gradient(140deg,#17150f,#0d0d0c);
+      padding:38px; position:relative;
+    }
+    .quote-panel:before { content:"“"; font-family:Georgia,serif; font-size:80px; color:var(--gold); line-height:1; }
+    .quote-panel blockquote { margin:0 0 22px; font:italic 29px/1.35 "Cormorant Garamond",serif; }
+    .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:17px; }
+    .card { border:1px solid var(--line); padding:25px; background:var(--panel); transition:.2s; }
+    .card:hover { border-color:var(--gold); transform:translateY(-3px); }
+    .card .symbol { font-size:26px; color:var(--gold); margin-bottom:15px; }
+    .card h3 { font-size:28px; margin-bottom:9px; }
+    .card p { color:var(--muted); font-size:13px; }
+    .card a { color:var(--gold-light); font-size:12px; }
+    .library { background:#0d0d0c; border-block:1px solid var(--line); }
+    .tools { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:24px; }
+    .field {
+      width:100%; background:#090909; color:var(--text); border:1px solid #3b3427;
+      padding:12px 13px; border-radius:2px; outline:none;
+    }
+    .field:focus { border-color:var(--gold); }
+    .tools .search { flex:1 1 240px; }
+    .tools select { flex:0 1 200px; }
+    .book-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:17px; }
+    .book { background:#13120f; border:1px solid var(--line); padding:22px; min-width:0; }
+    .book-cover {
+      height:145px; display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+      background:linear-gradient(145deg,#2b2417,#0a0a09); border:1px solid #5c492b;
+      color:var(--gold); font:56px "Cormorant Garamond",serif;
+    }
+    .book h3 { font-size:25px; overflow-wrap:anywhere; margin-bottom:7px; }
+    .book p { color:var(--muted); font-size:12px; }
+    .book-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+    .book-actions .btn { font-size:11px; padding:8px 10px; }
+    .empty { grid-column:1/-1; padding:35px; text-align:center; border:1px dashed var(--line); color:var(--muted); }
+    .quote-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    .quote-card { border-left:2px solid var(--gold); padding:22px 25px; background:var(--panel); }
+    .quote-card p { font:italic 26px/1.3 "Cormorant Garamond",serif; margin-bottom:12px; }
+    .quote-card small { color:var(--gold); letter-spacing:1px; }
+    .journal-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:17px; }
+    .journal-card { border:1px solid var(--line); padding:27px; }
+    .journal-card h3 { font-size:31px; margin:12px 0; }
+    .journal-card p { color:var(--muted); font-size:14px; }
+    .gallery-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .gallery-tile {
+      min-height:170px; display:flex; align-items:end; padding:20px;
+      background:linear-gradient(145deg,#262014,#11110f 65%);
+      border:1px solid var(--line); color:var(--gold-light);
+      font:italic 25px "Cormorant Garamond",serif;
+    }
+    .about-box { border:1px solid var(--line); padding:38px; max-width:800px; }
+    .admin-section { background:#0d0d0c; border-block:1px solid var(--line); }
+    .admin-box { max-width:760px; border:1px solid var(--line); background:var(--panel); padding:28px; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .form-row { margin-bottom:14px; }
+    .form-row label { display:block; color:var(--muted); font-size:12px; margin-bottom:6px; }
+    .admin-status { font-size:13px; color:var(--muted); margin:13px 0; overflow-wrap:anywhere; }
+    .admin-book { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); }
+    .admin-book span { overflow-wrap:anywhere; }
+    .hidden { display:none !important; }
+    footer { padding:35px 0; border-top:1px solid var(--line); }
+    .footer-inner { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; color:var(--muted); font-size:12px; }
+    .notice { font-size:12px; color:var(--muted); margin-top:16px; }
+    @media(max-width:800px) {
+      .nav-links { display:none; position:absolute; top:75px; left:0; right:0; padding:22px 5%;
+        background:#0b0b0a; border-bottom:1px solid var(--line); flex-direction:column; align-items:flex-start; }
+      .nav-links.open { display:flex; }
+      .menu-btn { display:block; }
+      .intro-grid { grid-template-columns:1fr; gap:28px; }
+      .cards,.book-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .hero { min-height:570px; }
+    }
+    @media(max-width:520px) {
+      .section { padding:68px 0; }
+      .cards,.book-grid,.quote-grid,.journal-grid,.gallery-grid,.form-grid { grid-template-columns:1fr; }
+      .hero h1 { font-size:64px; }
+      .hero p { font-size:14px; }
+      .quote-panel,.about-box,.admin-box { padding:23px; }
+      .quote-panel blockquote { font-size:25px; }
+      .book-cover { height:115px; }
+    }
+  </style>
 </head>
 <body>
-
 <header>
-  <div class="logo">QEVRULIXA</div>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#philosophy">Philosophy</a>
-    <a href="#literature">Literature</a>
-    <a href="#library">Library</a>
-    <a href="#quotes">Quotes</a>
-    <a href="#articles">Articles</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#about">About</a>
-    <a href="#admin">Admin</a>
-  </nav>
+  <div class="wrap nav">
+    <a class="brand" href="#home">QEVRULIXA<small>A WORLD BEYOND WORDS</small></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a><a href="#philosophy">Philosophy</a>
+      <a href="#explore">Explore</a><a href="#library">Library</a>
+      <a href="#quotes">Quotes</a><a href="#journal">Journal</a>
+      <a href="#gallery">Gallery</a><a href="#about">About</a>
+      <a href="#admin">Admin</a>
+    </nav>
+  </div>
 </header>
 
 <main>
-<section class="hero" id="home">
-  <div class="eyebrow">Ideas • Imagination • Inner Worlds</div>
-  <h1>A World Beyond Words</h1>
-  <p>A quiet corner of the digital universe where thoughts deepen,
-  literature breathes, wisdom speaks, and imagination finds its home.</p>
-  <div>
-    <a class="btn" href="#library">Explore the Library</a>
-    <a class="btn secondary" href="#about">Discover QEVRULIXA</a>
-  </div>
-</section>
+  <section class="hero" id="home">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="eyebrow">A sanctuary for curious minds</div>
+        <h1 class="serif">Beyond the <span>ordinary.</span></h1>
+        <div class="ornament"></div>
+        <p>Enter a world where ideas breathe, silence speaks, and every page opens a new doorway to imagination. Discover words that stay with you long after the reading ends.</p>
+        <div class="actions">
+          <a class="btn primary" href="#library">Explore the Library ↗</a>
+          <a class="btn" href="#philosophy">Discover Our Philosophy</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="philosophy">
-  <div class="section-intro">
-    <div class="eyebrow">Think Beyond</div>
-    <h2>Philosophy</h2>
-    <p>Explore questions about existence, consciousness, truth, freedom
-    and the meaning we create in our lives.</p>
-  </div>
-  <div class="grid">
-    <article class="card"><h3>The Art of Thinking</h3><p>Question assumptions and discover new perspectives.</p></article>
-    <article class="card"><h3>Meaning & Existence</h3><p>Reflect on identity, purpose and the human experience.</p></article>
-    <article class="card"><h3>Wisdom for Life</h3><p>Ideas that invite thoughtful living and deeper understanding.</p></article>
-  </div>
-</section>
+  <section class="section" id="philosophy">
+    <div class="wrap intro-grid">
+      <div>
+        <div class="eyebrow">Our philosophy</div>
+        <h2>Some worlds can only be found <span class="gold">within.</span></h2>
+        <p class="muted">QEVRULIXA is a thoughtfully curated digital space for readers, dreamers, thinkers, and seekers. We believe words are more than ink on a page: they are windows into other lives, mirrors of our own, and bridges between different ways of seeing the world.</p>
+        <p class="muted">Slow down. Stay curious. Leave with a thought worth keeping.</p>
+        <a class="btn" href="#explore">Find Your Next Discovery ↗</a>
+      </div>
+      <div class="quote-panel">
+        <blockquote>“A quiet page can hold a universe that the noise of the world cannot reveal.”</blockquote>
+        <div class="eyebrow">The QEVRULIXA spirit</div>
+      </div>
+    </div>
+  </section>
 
-<section id="literature">
-  <div class="section-intro">
-    <div class="eyebrow">The Written World</div>
-    <h2>Literature</h2>
-    <p>Discover the beauty of language, the power of storytelling,
-    and the ideas that connect people across generations.</p>
-  </div>
-  <div class="grid">
-    <article class="card"><h3>Words & Expression</h3><p>Writing that gives shape to emotions and ideas.</p></article>
-    <article class="card"><h3>Creative Perspectives</h3><p>Fresh voices, imaginative worlds and thoughtful reflections.</p></article>
-    <article class="card"><h3>Classics & Culture</h3><p>Explore enduring works and the worlds behind them.</p></article>
-  </div>
-</section>
+  <section class="section" id="explore">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Explore the unknown</div>
+        <h2>Choose a doorway.</h2>
+        <p>Follow your curiosity through ideas, imagination, human experience, and timeless questions.</p>
+      </div>
+      <div class="cards">
+        <article class="card"><div class="symbol">✧</div><h3>Philosophy</h3><p>Questions that challenge assumptions and deepen understanding.</p><a href="#library" data-category="Philosophy">Explore this world ↗</a></article>
+        <article class="card"><div class="symbol">❧</div><h3>Poetry</h3><p>Language shaped into rhythm, feeling, and unforgettable moments.</p><a href="#library" data-category="Poetry">Explore this world ↗</a></article>
+        <article class="card"><div class="symbol">◇</div><h3>Fiction</h3><p>Imagined worlds, complex characters, and unexpected journeys.</p><a href="#library" data-category="Fiction">Explore this world ↗</a></article>
+        <article class="card"><div class="symbol">⌘</div><h3>Knowledge</h3><p>Fresh perspectives, useful ideas, and the joy of learning.</p><a href="#library" data-category="Knowledge">Explore this world ↗</a></article>
+        <article class="card"><div class="symbol">☼</div><h3>Mindfulness</h3><p>Reflections on attention, stillness, and living with intention.</p><a href="#library" data-category="Mindfulness">Explore this world ↗</a></article>
+        <article class="card"><div class="symbol">∞</div><h3>Other Worlds</h3><p>Discoveries that resist labels and invite you to look again.</p><a href="#library" data-category="Other">Explore this world ↗</a></article>
+      </div>
+    </div>
+  </section>
 
-<section id="library">
-  <div class="section-intro">
-    <div class="eyebrow">Read • Reflect • Return</div>
-    <h2>The Digital Library</h2>
-    <p>Search the collection or select a category. Books added by the
-    administrator on this browser will appear below.</p>
-  </div>
-  <input id="search" type="search" placeholder="Search by book title or author..." oninput="renderBooks()">
-  <select id="category" onchange="renderBooks()">
-    <option value="All">All categories</option>
-    <option>Philosophy</option><option>Literature</option>
-    <option>Poetry</option><option>Shayari</option>
-    <option>Biography</option><option>Spirituality</option>
-    <option>Other</option>
-  </select>
-  <div id="libraryList" class="grid"></div>
-</section>
+  <section class="section library" id="library">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">The digital collection</div>
+        <h2>The <span class="gold">Library.</span></h2>
+        <p>Search the collection, choose a category, and open a book that speaks to you. Available books are listed here from the connected library storage.</p>
+      </div>
+      <div class="tools">
+        <input class="field search" id="searchBooks" type="search" placeholder="Search by book title or category..." aria-label="Search books">
+        <select class="field" id="categoryFilter" aria-label="Filter by category">
+          <option value="All">All categories</option>
+          <option>Philosophy</option><option>Poetry</option><option>Fiction</option>
+          <option>Knowledge</option><option>Mindfulness</option><option>Other</option>
+        </select>
+        <button class="btn" id="refreshBooks">↻ Refresh</button>
+      </div>
+      <div class="book-grid" id="bookGrid">
+        <div class="empty">Connect Supabase to load your library.</div>
+      </div>
+      <p class="notice">Only upload books that you own or have permission to share. Online reading and downloads depend on the storage configuration.</p>
+    </div>
+  </section>
 
-<section id="quotes">
-  <div class="section-intro">
-    <div class="eyebrow">A Moment of Wisdom</div>
-    <h2>Quotes & Reflections</h2>
-  </div>
-  <div class="grid">
-    <article class="card"><div class="quote">“The unexamined life is not worth living.”</div><p>— Socrates</p></article>
-    <article class="card"><div class="quote">“Knowing yourself is the beginning of all wisdom.”</div><p>— Aristotle</p></article>
-    <article class="card"><div class="quote">“Turn your wounds into wisdom.”</div><p>— Oprah Winfrey</p></article>
-  </div>
-</section>
+  <section class="section" id="quotes">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Words to keep</div><h2>Fragments of <span class="gold">wisdom.</span></h2><p>Original reflections for a thoughtful pause.</p></div>
+      <div class="quote-grid">
+        <article class="quote-card"><p>“Not every unanswered question is a problem; some are invitations to grow.”</p><small>ON CURIOSITY</small></article>
+        <article class="quote-card"><p>“Protect the quiet moments in which your own thoughts can finally be heard.”</p><small>ON STILLNESS</small></article>
+        <article class="quote-card"><p>“A different perspective can turn an ordinary day into a new beginning.”</p><small>ON POSSIBILITY</small></article>
+        <article class="quote-card"><p>“You do not have to read every page today to begin a remarkable journey.”</p><small>ON BEGINNINGS</small></article>
+      </div>
+    </div>
+  </section>
 
-<section id="articles">
-  <div class="section-intro">
-    <div class="eyebrow">Ideas in Focus</div>
-    <h2>Articles</h2>
-    <p>A space for essays, reflections and explorations of ideas.
-    Replace these sample topics with your own original writing.</p>
-  </div>
-  <div class="grid">
-    <article class="card"><h3>The Beauty of Silence</h3><p>Silence can create room for observation, clarity and self-understanding.</p></article>
-    <article class="card"><h3>Why We Read</h3><p>Reading lets us encounter lives, questions and possibilities beyond our own.</p></article>
-    <article class="card"><h3>The Search for Meaning</h3><p>Meaning often grows from the questions we continue to explore.</p></article>
-  </div>
-</section>
+  <section class="section" id="journal">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">The journal</div><h2>Ideas worth <span class="gold">lingering over.</span></h2><p>A small collection of reflections to start conversations and inspire your own writing.</p></div>
+      <div class="journal-grid">
+        <article class="journal-card"><div class="eyebrow">01 / Attention</div><h3>The Art of Noticing</h3><p>Life often reveals its most meaningful details when we stop rushing past them. A line in a book, a familiar sound, or a moment of silence can shift our perspective.</p></article>
+        <article class="journal-card"><div class="eyebrow">02 / Imagination</div><h3>Why We Need New Worlds</h3><p>Stories allow us to encounter lives beyond our own. They expand empathy, challenge certainty, and remind us that there is always more than one way to understand a human experience.</p></article>
+      </div>
+    </div>
+  </section>
 
-<section id="gallery">
-  <div class="section-intro">
-    <div class="eyebrow">Visual Imagination</div>
-    <h2>Gallery</h2>
-    <p>Images added through Admin on this browser appear here.</p>
-  </div>
-  <div id="galleryList" class="grid"></div>
-</section>
+  <section class="section" id="gallery">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">A visual interlude</div><h2>The aesthetics of <span class="gold">thought.</span></h2><p>A quiet gallery inspired by books, light, memory, and the spaces between words.</p></div>
+      <div class="gallery-grid">
+        <div class="gallery-tile">The quiet library</div>
+        <div class="gallery-tile">Golden hour</div>
+        <div class="gallery-tile">A page of dreams</div>
+        <div class="gallery-tile">Light and shadow</div>
+        <div class="gallery-tile">Room to wonder</div>
+        <div class="gallery-tile">The art of pause</div>
+      </div>
+    </div>
+  </section>
 
-<section id="about">
-  <div class="section-intro">
-    <div class="eyebrow">Our World</div>
-    <h2>About QEVRULIXA</h2>
-    <p>QEVRULIXA is a digital space devoted to ideas, literature,
-    thoughtful expression and the timeless pursuit of knowledge.
-    It brings together reading, reflection and imagination in one place.</p>
-    <p>Our vision is simple: make room for curiosity, preserve meaningful
-    words, and encourage readers to explore the world within and around them.</p>
-  </div>
-</section>
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="about-box">
+        <div class="eyebrow">Behind the name</div>
+        <h2>Welcome to <span class="gold">QEVRULIXA.</span></h2>
+        <p class="muted">An independent digital destination created around the beauty of discovery. Our purpose is to make meaningful reading easier to explore and to offer a calm, considered space for ideas, imagination, and lifelong curiosity.</p>
+        <p class="muted">Read deeply. Think freely. Discover endlessly.</p>
+        <a class="btn" href="#library">Enter the Library ↗</a>
+      </div>
+    </div>
+  </section>
 
-<section id="admin">
-  <div class="section-intro">
-    <div class="eyebrow">Site Management</div>
-    <h2>Admin Panel</h2>
-    <p><strong>Important:</strong> This starter version stores files only in this
-    browser. It does not securely authenticate an administrator or publish
-    uploaded files for other visitors. Use a real backend before making uploads public.</p>
-  </div>
-
-  <div class="card">
-    <h3>Add a Book (this browser only)</h3>
-    <label for="bookTitle">Book title</label>
-    <input id="bookTitle" placeholder="Enter book title">
-    <label for="bookAuthor">Author (optional)</label>
-    <input id="bookAuthor" placeholder="Author name">
-    <label for="bookCategory">Category</label>
-    <select id="bookCategory">
-      <option>Philosophy</option><option>Literature</option>
-      <option>Poetry</option><option>Shayari</option>
-      <option>Biography</option><option>Spirituality</option><option>Other</option>
-    </select>
-    <label for="bookFile">Choose PDF</label>
-    <input id="bookFile" type="file" accept="application/pdf">
-    <button class="btn" onclick="addBook()">Add Book</button>
-    <p class="small">This demo stores a PDF in this browser only. Large files may not fit in browser storage.</p>
-  </div>
-
-  <div class="card" style="margin-top:18px">
-    <h3>Add an Image to Gallery (this browser only)</h3>
-    <label for="imageTitle">Image title</label>
-    <input id="imageTitle" placeholder="Enter image title">
-    <label for="imageFile">Choose image</label>
-    <input id="imageFile" type="file" accept="image/*">
-    <button class="btn" onclick="addImage()">Add Image</button>
-  </div>
-</section>
+  <section class="section admin-section" id="admin">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow">Collection management</div>
+        <h2>Admin <span class="gold">studio.</span></h2>
+        <p>Sign in with the admin user you created in Supabase Authentication to manage PDF files.</p>
+      </div>
+      <div class="admin-box">
+        <div id="loginPanel">
+          <h3 style="font-size:30px">Administrator sign in</h3>
+          <form id="loginForm">
+            <div class="form-row"><label for="adminEmail">Admin email</label><input class="field" id="adminEmail" type="email" autocomplete="username" required></div>
+            <div class="form-row"><label for="adminPassword">Password</label><input class="field" id="adminPassword" type="password" autocomplete="current-password" required></div>
+            <button class="btn primary" type="submit">Sign in securely</button>
+          </form>
+        </div>
+        <div id="adminPanel" class="hidden">
+          <h3 style="font-size:30px">Manage the library</h3>
+          <p class="muted" id="signedInAs"></p>
+          <form id="uploadForm">
+            <div class="form-row"><label for="bookTitle">Book title</label><input class="field" id="bookTitle" maxlength="100" required placeholder="Enter the book title"></div>
+            <div class="form-grid">
+              <div class="form-row"><label for="bookCategory">Category</label>
+                <select class="field" id="bookCategory" required>
+                  <option>Philosophy</option><option>Poetry</option><option>Fiction</option>
+                  <option>Knowledge</option><option>Mindfulness</option><option>Other</option>
+                </select>
+              </div>
+              <div class="form-row"><label for="bookFile">PDF file (max 25 MB)</label><input class="field" id="bookFile" type="file" accept=".pdf,application/pdf" required></div>
+            </div>
+            <button class="btn primary" id="uploadBtn" type="submit">Upload PDF</button>
+          </form>
+          <div class="admin-status" id="adminStatus" role="status" aria-live="polite"></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 20px">
+            <button class="btn small" id="adminRefresh" type="button">Refresh list</button>
+            <button class="btn small" id="logoutBtn" type="button">Sign out</button>
+          </div>
+          <h3 style="font-size:26px">Uploaded books</h3>
+          <div id="adminBookList"></div>
+        </div>
+        <p class="notice">Admin controls require working Supabase authentication and correctly configured Storage policies. Do not share your admin password.</p>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer>
-  <div class="logo">QEVRULIXA</div>
-  <p>A World Beyond Words</p>
-  <p class="small">© <span id="year"></span> QEVRULIXA. Respect authors' rights and share only files you have permission to distribute.</p>
+  <div class="wrap footer-inner">
+    <div><a class="brand" href="#home">QEVRULIXA</a><div>Read deeply. Discover endlessly.</div></div>
+    <div>© <span id="year"></span> QEVRULIXA. Built for curious minds.</div>
+  </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const DB_BOOKS = "qevrulixa_books_v1";
-const DB_IMAGES = "qevrulixa_images_v1";
-let books = [];
-let gallery = [];
+(() => {
+  "use strict";
 
-function loadData() {
-  try { books = JSON.parse(localStorage.getItem(DB_BOOKS) || "[]"); } catch(e) { books=[]; }
-  try { gallery = JSON.parse(localStorage.getItem(DB_IMAGES) || "[]"); } catch(e) { gallery=[]; }
-}
-function saveData() {
-  try {
-    localStorage.setItem(DB_BOOKS, JSON.stringify(books));
-    localStorage.setItem(DB_IMAGES, JSON.stringify(gallery));
-    return true;
-  } catch(e) {
-    alert("Browser storage is full. Try a smaller file or use cloud storage.");
-    return false;
-  }
-}
-function escapeHTML(s) {
-  return String(s).replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-function renderBooks() {
-  const q = (document.getElementById("search").value || "").toLowerCase();
-  const cat = document.getElementById("category").value;
-  const list = document.getElementById("libraryList");
-  const filtered = books.filter(b =>
-    (cat === "All" || b.category === cat) &&
-    (b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q))
-  );
-  list.innerHTML = "";
-  if (!filtered.length) {
-    list.innerHTML = '<div class="card"><h3>No books found yet</h3><p>Add a PDF using the Admin section.</p></div>';
-    return;
-  }
-  filtered.forEach(b => {
-    const card = document.createElement("article");
-    card.className = "card";
-    card.innerHTML = '<h3>'+escapeHTML(b.title)+'</h3><p>'+escapeHTML(b.author || "Author not listed")+'</p><p class="small">'+escapeHTML(b.category)+'</p>';
-    const actions = document.createElement("div");
-    actions.className = "book-actions";
-    const read = document.createElement("a");
-    read.className = "btn"; read.textContent = "Read PDF";
-    read.href = b.url; read.target = "_blank"; read.rel = "noopener";
-    const download = document.createElement("a");
-    download.className = "btn secondary"; download.textContent = "Download";
-    download.href = b.url; download.download = b.title + ".pdf";
-    actions.append(read, download); card.append(actions); list.append(card);
+  // STEP 1: Replace these two placeholders with your Supabase Project URL
+  // and Publishable Key. Never put a Secret/Service Role key here.
+  const SUPABASE_URL = "https://rffsfhkusdlumkvoycsz.supabase.co/rest/v1/";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Y_Maexa0ogLgAfGVmfRIlg_pnSCMMcV";
+  const BUCKET = "books";
+  const MAX_FILE_SIZE = 25 * 1024 * 1024;
+
+  const $ = (id) => document.getElementById(id);
+  $("year").textContent = new Date().getFullYear();
+
+  $("menuBtn").addEventListener("click", () => {
+    $("navLinks").classList.toggle("open");
   });
-}
-function addBook() {
-  const title = document.getElementById("bookTitle").value.trim();
-  const author = document.getElementById("bookAuthor").value.trim();
-  const category = document.getElementById("bookCategory").value;
-  const file = document.getElementById("bookFile").files[0];
-  if (!title || !file) { alert("Please enter a title and choose a PDF."); return; }
-  if (file.type !== "application/pdf") { alert("Please choose a PDF file."); return; }
-  if (file.size > 1500000) {
-    alert("This browser demo accepts PDFs up to about 1.5 MB. Use cloud storage for larger files.");
-    return;
+  document.querySelectorAll("#navLinks a").forEach(a => {
+    a.addEventListener("click", () => $("navLinks").classList.remove("open"));
+  });
+
+  let supabase = null;
+  let allBooks = [];
+  let signedInUser = null;
+
+  function setStatus(message, isError = false) {
+    const el = $("adminStatus");
+    if (el) {
+      el.textContent = message;
+      el.style.color = isError ? "#ff9c91" : "#d8b46b";
+    }
   }
-  const reader = new FileReader();
-  reader.onload = () => {
-    books.push({title, author, category, url:reader.result});
-    if (saveData()) {
+
+  function configurationReady() {
+    return SUPABASE_URL.startsWith("https://")
+      && !SUPABASE_URL.includes("PASTE_")
+      && SUPABASE_PUBLISHABLE_KEY.length > 20
+      && !SUPABASE_PUBLISHABLE_KEY.includes("PASTE_");
+  }
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+      "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+    })[char]);
+  }
+
+  function categoryFromName(name) {
+    const match = name.match(/^\[([^\]]+)\]\s*/);
+    const allowed = ["Philosophy","Poetry","Fiction","Knowledge","Mindfulness","Other"];
+    return match && allowed.includes(match[1]) ? match[1] : "Other";
+  }
+
+  function titleFromName(name) {
+    let title = name.replace(/^\[[^\]]+\]\s*/, "").replace(/\.pdf$/i, "");
+    try { title = decodeURIComponent(title); } catch (_) {}
+    return title.replace(/[_-]+/g, " ").trim() || "Untitled book";
+  }
+
+  function storageErrorMessage(error) {
+    const message = error && error.message ? error.message : String(error || "Unknown error");
+    if (/row.level security|permission|not allowed|unauthorized|forbidden/i.test(message)) {
+      return message + " — Check your Supabase Storage policies.";
+    }
+    return message;
+  }
+
+  async function getBooksFromStorage() {
+    if (!supabase) {
+      $("bookGrid").innerHTML = '<div class="empty">Add your Supabase Project URL and Publishable Key in the code to load books.</div>';
+      return;
+    }
+
+    $("bookGrid").innerHTML = '<div class="empty">Loading the library…</div>';
+
+    const { data, error } = await supabase.storage.from(BUCKET).list("", {
+      limit: 1000,
+      sortBy: { column: "name", order: "asc" }
+    });
+
+    if (error) {
+      $("bookGrid").innerHTML = '<div class="empty">Could not load books. Check the bucket name and Storage SELECT policy, then refresh.</div>';
+      console.error("Library load error:", error);
+      return;
+    }
+
+    allBooks = (data || [])
+      .filter(file => file.name && /\.pdf$/i.test(file.name) && file.name !== ".emptyFolderPlaceholder")
+      .map(file => ({
+        name: file.name,
+        title: titleFromName(file.name),
+        category: categoryFromName(file.name)
+      }));
+
+    renderBooks();
+  }
+
+  function renderBooks() {
+    const query = $("searchBooks").value.trim().toLowerCase();
+    const category = $("categoryFilter").value;
+    const books = allBooks.filter(book =>
+      (category === "All" || book.category === category) &&
+      (book.title.toLowerCase().includes(query) || book.category.toLowerCase().includes(query))
+    );
+
+    const grid = $("bookGrid");
+    grid.innerHTML = "";
+
+    if (!books.length) {
+      grid.innerHTML = '<div class="empty">No books found. Try another search or check back later.</div>';
+      return;
+    }
+
+    books.forEach(book => {
+      const card = document.createElement("article");
+      card.className = "book";
+      const cover = document.createElement("div");
+      cover.className = "book-cover";
+      cover.textContent = "Q";
+      const title = document.createElement("h3");
+      title.textContent = book.title;
+      const categoryText = document.createElement("p");
+      categoryText.textContent = book.category;
+      const actions = document.createElement("div");
+      actions.className = "book-actions";
+
+      const readBtn = document.createElement("button");
+      readBtn.className = "btn primary";
+      readBtn.textContent = "Read PDF ↗";
+      readBtn.addEventListener("click", () => openBook(book.name, false));
+
+      const downloadBtn = document.createElement("button");
+      downloadBtn.className = "btn";
+      downloadBtn.textContent = "Download ↓";
+      downloadBtn.addEventListener("click", () => openBook(book.name, true));
+
+      actions.append(readBtn, downloadBtn);
+      card.append(cover, title, categoryText, actions);
+      grid.append(card);
+    });
+  }
+
+  async function openBook(name, download) {
+    if (!supabase) return alert("Please configure Supabase first.");
+    const { data, error } = await supabase.storage.from(BUCKET).createSignedUrl(name, 300, {
+      download: download ? titleFromName(name) + ".pdf" : false
+    });
+
+    if (error || !data || !data.signedUrl) {
+      console.error("Signed URL error:", error);
+      alert("Unable to open this PDF. Check the Storage SELECT policy and bucket configuration.");
+      return;
+    }
+
+    window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+  }
+
+  async function refreshAdminList() {
+    if (!supabase || !signedInUser) return;
+    const list = $("adminBookList");
+    list.textContent = "Loading uploaded books…";
+
+    const { data, error } = await supabase.storage.from(BUCKET).list("", {
+      limit: 1000,
+      sortBy: { column: "name", order: "asc" }
+    });
+
+    if (error) {
+      list.textContent = "Could not load files: " + storageErrorMessage(error);
+      return;
+    }
+
+    const files = (data || []).filter(f => f.name && /\.pdf$/i.test(f.name));
+    list.innerHTML = "";
+
+    if (!files.length) {
+      list.textContent = "No PDFs uploaded yet.";
+      return;
+    }
+
+    files.forEach(file => {
+      const row = document.createElement("div");
+      row.className = "admin-book";
+      const label = document.createElement("span");
+      label.textContent = titleFromName(file.name) + " · " + categoryFromName(file.name);
+
+      const del = document.createElement("button");
+      del.className = "btn small";
+      del.textContent = "Delete";
+      del.addEventListener("click", async () => {
+        if (!confirm("Permanently delete this PDF from the library?")) return;
+        del.disabled = true;
+        const { error: deleteError } = await supabase.storage.from(BUCKET).remove([file.name]);
+        if (deleteError) {
+          alert("Delete failed: " + storageErrorMessage(deleteError));
+          del.disabled = false;
+          return;
+        }
+        setStatus("PDF deleted successfully.");
+        await refreshAdminList();
+        await getBooksFromStorage();
+      });
+
+      row.append(label, del);
+      list.append(row);
+    });
+  }
+
+  function updateAuthView(user) {
+    signedInUser = user || null;
+    $("loginPanel").classList.toggle("hidden", !!user);
+    $("adminPanel").classList.toggle("hidden", !user);
+    $("signedInAs").textContent = user ? "Signed in as " + user.email : "";
+    if (user) refreshAdminList();
+  }
+
+  async function initialize() {
+    if (!configurationReady()) {
+      $("bookGrid").innerHTML = '<div class="empty">Supabase is not configured yet. Replace the two placeholder values in the JavaScript section at the bottom of this file.</div>';
+      return;
+    }
+    if (!window.supabase || !window.supabase.createClient) {
+      $("bookGrid").innerHTML = '<div class="empty">Supabase library did not load. Check your internet connection and refresh.</div>';
+      return;
+    }
+
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+    await getBooksFromStorage();
+
+    const { data, error } = await supabase.auth.getSession();
+    if (error) console.error("Session error:", error);
+    updateAuthView(data && data.session ? data.session.user : null);
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      updateAuthView(session ? session.user : null);
+    });
+  }
+
+  $("searchBooks").addEventListener("input", renderBooks);
+  $("categoryFilter").addEventListener("change", renderBooks);
+  $("refreshBooks").addEventListener("click", getBooksFromStorage);
+  $("adminRefresh").addEventListener("click", refreshAdminList);
+
+  document.querySelectorAll("[data-category]").forEach(link => {
+    link.addEventListener("click", () => {
+      $("categoryFilter").value = link.dataset.category;
       renderBooks();
-      document.getElementById("bookTitle").value = "";
-      document.getElementById("bookAuthor").value = "";
-      document.getElementById("bookFile").value = "";
-      alert("Book added in this browser.");
-    } else { books.pop(); }
-  };
-  reader.readAsDataURL(file);
-}
-function renderGallery() {
-  const list = document.getElementById("galleryList");
-  list.innerHTML = "";
-  if (!gallery.length) {
-    list.innerHTML = '<div class="card"><h3>Gallery is waiting</h3><p>Add images from the Admin section.</p></div>';
-    return;
-  }
-  gallery.forEach((g, i) => {
-    const card = document.createElement("article"); card.className = "card";
-    const img = document.createElement("img");
-    img.src = g.url; img.alt = g.title; img.style.width = "100%"; img.style.height = "220px"; img.style.objectFit = "cover";
-    const title = document.createElement("h3"); title.textContent = g.title;
-    card.append(img, title); list.append(card);
+    });
   });
-}
-function addImage() {
-  const title = document.getElementById("imageTitle").value.trim();
-  const file = document.getElementById("imageFile").files[0];
-  if (!title || !file) { alert("Please enter a title and choose an image."); return; }
-  if (!file.type.startsWith("image/")) { alert("Please choose an image file."); return; }
-  if (file.size > 1000000) { alert("Choose an image under 1 MB for this browser demo."); return; }
-  const reader = new FileReader();
-  reader.onload = () => {
-    gallery.push({title, url:reader.result});
-    if (saveData()) {
-      renderGallery();
-      document.getElementById("imageTitle").value = "";
-      document.getElementById("imageFile").value = "";
-      alert("Image added in this browser.");
-    } else { gallery.pop(); }
-  };
-  reader.readAsDataURL(file);
-}
-document.getElementById("year").textContent = new Date().getFullYear();
-loadData(); renderBooks(); renderGallery();
+
+  $("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!supabase) return alert("Configure Supabase URL and Publishable Key first.");
+    const button = event.submitter;
+    if (button) button.disabled = true;
+    setStatus("Signing in…");
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: $("adminEmail").value.trim(),
+      password: $("adminPassword").value
+    });
+    if (button) button.disabled = false;
+
+    if (error) {
+      setStatus("Sign-in failed: " + storageErrorMessage(error), true);
+      return;
+    }
+    $("adminPassword").value = "";
+    updateAuthView(data.user);
+    setStatus("Signed in successfully.");
+  });
+
+  $("logoutBtn").addEventListener("click", async () => {
+    if (!supabase) return;
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      setStatus("Sign-out failed: " + error.message, true);
+      return;
+    }
+    updateAuthView(null);
+    setStatus("Signed out.");
+  });
+
+  $("uploadForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    if (!supabase || !signedInUser) {
+      setStatus("Please sign in first.", true);
+      return;
+    }
+
+    const title = $("bookTitle").value.trim();
+    const category = $("bookCategory").value;
+    const file = $("bookFile").files[0];
+
+    if (!title) return setStatus("Enter a book title.", true);
+    if (!file) return setStatus("Choose a PDF file.", true);
+    if (file.type !== "application/pdf" && !/\.pdf$/i.test(file.name)) {
+      return setStatus("Only PDF files are allowed.", true);
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      return setStatus("File exceeds the 25 MB limit.", true);
+    }
+
+    // Store category and title in one safe, readable filename.
+    const safeTitle = title
+      .normalize("NFKC")
+      .replace(/[\/\\?%*:|"<>]/g, "")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 100);
+
+    if (!safeTitle) return setStatus("Please use a different title.", true);
+
+    const objectName = "[" + category + "] " + safeTitle + ".pdf";
+    const uploadBtn = $("uploadBtn");
+    uploadBtn.disabled = true;
+    setStatus("Uploading PDF…");
+
+    const { error } = await supabase.storage.from(BUCKET).upload(objectName, file, {
+      contentType: "application/pdf",
+      upsert: false,
+      cacheControl: "3600"
+    });
+
+    uploadBtn.disabled = false;
+
+    if (error) {
+      setStatus("Upload failed: " + storageErrorMessage(error), true);
+      return;
+    }
+
+    $("uploadForm").reset();
+    setStatus("PDF uploaded successfully.");
+    await getBooksFromStorage();
+    await refreshAdminList();
+  });
+
+  initialize().catch(error => {
+    console.error(error);
+    $("bookGrid").innerHTML = '<div class="empty">Setup error. Check your Supabase configuration and browser console.</div>';
+  });
+})();
 </script>
 </body>
 </html>
