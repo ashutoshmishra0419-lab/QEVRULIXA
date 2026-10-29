@@ -659,7 +659,13 @@
 
     if (!safeTitle) return setStatus("Please use a different title.", true);
 
-    const objectName = "[" + category + "] " + safeTitle + ".pdf";
+    const safeCategory = category.replace(/[^a-zA-Z0-9_-]/g, "");
+const safeFileName = safeTitle
+  .replace(/[^a-zA-Z0-9_-]/g, "_")
+  .replace(/_+/g, "_")
+  .slice(0, 80);
+
+const objectName = safeCategory + "/" + safeFileName + ".pdf";
     const uploadBtn = $("uploadBtn");
     uploadBtn.disabled = true;
     setStatus("Uploading PDF…");
